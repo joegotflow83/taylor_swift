@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object.song }}{% endblock title %}
+
+{% block content %}
+
+<h2>{{ object.author }}</h2>
+<p>From {{ object.album }}</p>
+<h3>{{ object.song }}</h3>
+{{ object.lyrics | linebreaks }}
+
+{% endblock %}

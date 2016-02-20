@@ -6,7 +6,7 @@
     <h2>Taylor Swift Songs</h2>
     <ul>
         {% for song in object_list %}
-            <li>{{ song.song }}</li>
+            <li><a href="/songs/{{ song.id }}">{{ song.song }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}

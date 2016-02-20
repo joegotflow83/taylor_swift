@@ -21,6 +21,7 @@ class SongDetail(DetailView):
 
 
 	queryset = Lyrics.objects.all()
+	template_name = 'lyrics/song.html'
 
 	def get_object(self):
 		"""When user clicks on song display all info about the song"""
