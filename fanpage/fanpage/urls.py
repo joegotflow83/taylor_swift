@@ -16,6 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from lyrics import views
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', views.index, name='index'),
+    url(r'^songs/$', views.SongsList.as_view()),
+    url(r'^(?P<pk>[0-9]+)/$', views.SongDetail.as_view()),
 ]
