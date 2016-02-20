@@ -16,10 +16,12 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from lyrics import views
+from lyrics.views import index
+from accounts import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.index, name='index'),
-    url(r'^songs/', include('lyrics.urls'))
+    url(r'^$', index, name='index'),
+    url(r'^songs/', include('lyrics.urls')),
+    url(r'^register/', views.Register.as_view()),
 ]
