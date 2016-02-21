@@ -12,7 +12,9 @@
 	<!-- Pills Nav Bar -->
 	<ul class="nav nav-pills">
   		<li role="presentation"><a href="{% url 'index' %}">Home</a></li>
-  		<li role="presentation"><a href="/songs/">Songs</a></li>
+  		<li role="presentation"><a href="{% url 'about' %}">About</a>
+  		<li role="presentation"><a href="{% url 'list' %}">Songs</a></li>
+  		<li role="presentation"><a href="{% url 'twitter' %}">Twitter</a></li>
   		<li role="presentation"><a href="{% url 'register' %}">Register</a></li>
   		<li role="presentation"><a href="{% url 'login' %}">Log In</a>
   		{% if user %}
