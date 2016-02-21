@@ -1,15 +1,25 @@
 {% extends 'base.html' %}
+{% load bootstrap_tags %}
 
 {% block title %}Register{% endblock title %}
 
 {% block content %}
 
 <h2>Sign Up</h2>
-<form method="POST" action="">
-	{% csrf_token %}
-	{{ userform }}
-	{{ userprofileform }}
-	<input type="submit" value="Sign Up!" class="btn btn-success">
-</form>
+<div class="form">
+	<form method="POST" action="/register/">
+		{% csrf_token %}
+		{{ userform | as_bootstrap }}
+		{{ userprofileform | as_bootstrap}}
+		<input type="submit" value="Sign Up!" class="btn btn-success">
+	</form>
+</div>
+
+<style>
+	.form {
+		padding-right: 500px;
+		padding-left: 50px;
+	}
+</style>
 
 {% endblock %}

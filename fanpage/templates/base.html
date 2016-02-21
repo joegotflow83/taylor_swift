@@ -13,7 +13,11 @@
 	<ul class="nav nav-pills">
   		<li role="presentation"><a href="{% url 'index' %}">Home</a></li>
   		<li role="presentation"><a href="/songs/">Songs</a></li>
-  		<li role="presentation"><a href="/register/">Register</a></li>
+  		<li role="presentation"><a href="{% url 'register' %}">Register</a></li>
+  		<li role="presentation"><a href="{% url 'login' %}">Log In</a>
+  		{% if user %}
+  			<li role="presentation"><a href="{% url 'logout' %}">Log Out</a>
+  		{% endif %}
 	</ul>
 
 	<style>

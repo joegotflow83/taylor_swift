@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+import datetime
 
 from .models import UserProfile
 
@@ -11,8 +12,9 @@ class UserForm(forms.ModelForm):
 
 
 		model = User
-		fields = ['username', 'first_name', 'last_name', 'email', 'password',
-				  'last_login', 'date_joined']
+		fields = ['username', 'email', 'password', 'first_name', 'last_name']
+		last_login = forms.DateTimeField(datetime.datetime.now())
+		date_joined = forms.DateTimeField(datetime.datetime.now())
 
 
 class UserProfileForm(forms.ModelForm):
