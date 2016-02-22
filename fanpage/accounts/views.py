@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect
 from django.template import RequestContext
 from django.views.generic import ListView
 from django.contrib.auth import authenticate, login, logout

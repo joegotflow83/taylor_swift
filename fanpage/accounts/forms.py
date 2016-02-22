@@ -12,8 +12,6 @@ class UserForm(UserCreationForm):
 	email = forms.EmailField(required=True)
 	first_name = forms.CharField(max_length = 32)
 	last_name = forms.CharField(max_length = 32)
-	password = forms.CharField(min_length=6, max_length=32, widget=forms.PasswordInput)
-	verify_password = forms.CharField(min_length=6, max_length=32, widget=forms.PasswordInput)
 
 
 	class Meta:
@@ -25,10 +23,10 @@ class UserForm(UserCreationForm):
 		last_login = forms.DateTimeField(datetime.datetime.now())
 		date_joined = forms.DateTimeField(datetime.datetime.now())
 
-		def save(self):
+		def save(self, commit=True):
 			"""Override save method to save data to User model"""
 			data = self.cleaned_data
-			user = User(username=data['username'], email=data['email'], first_name=data['password1'],
+			user = User(email=data['email'], first_name=data['password1'],
 			last_name=data['password2'], password1=data['first_name'],
 			password2=data['last_name'])
 			user.save()
