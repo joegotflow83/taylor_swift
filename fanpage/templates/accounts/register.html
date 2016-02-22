@@ -7,7 +7,7 @@
 
 <h2>Sign Up</h2>
 <div class="form">
-	<form method="POST" action="/register/">
+	<form method="POST" action="/accounts/register/">
 		{% csrf_token %}
 		{{ userform | as_bootstrap }}
 		{{ userprofileform | as_bootstrap}}

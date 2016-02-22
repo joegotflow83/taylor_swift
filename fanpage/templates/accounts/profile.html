@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+
+<h2>{{ user.username }}</h2>
+<h3>{{ user.first_name }} {{ user.last_name }}</h3>
+{% if profile.image %}
+	<img src="/media/{{ profile.image }}">
+{% endif %}
+<p>Update Your Profile Pic? <br><a href="{% url 'update_pic' %}" class="btn btn-primary">Update Profile Picture</a>
+<br>
+<br>
+<p>Email: {{ user.email }}</p>
+<p>Favorite Song: {{ profile.favorite_song }}</p>
+<p>Favorite Album: {{ profile.favorite_album }}</p>
+Things You Like About Taylor Swift: {{ profile.about | linebreaks }}
+
+
+{% endblock %}

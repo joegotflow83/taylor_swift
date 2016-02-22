@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Picture{% endblock title %}
+
+{% block content %}
+
+<h2>Update Your Profile Picture</h2>
+<form method="post" action="/accounts/update_profile_picture/">
+	{% csrf_token %}
+	{{ form }}
+	<br>
+	<input type="submit" name="submit" value="Update Picture" class="btn btn-success"> 
+
+{% endblock %}
