@@ -26,9 +26,8 @@ class UserForm(UserCreationForm):
 		def save(self, commit=True):
 			"""Override save method to save data to User model"""
 			data = self.cleaned_data
-			user = User(email=data['email'], first_name=data['password1'],
-			last_name=data['password2'], password1=data['first_name'],
-			password2=data['last_name'])
+			user = User(email=data['email'], first_name=data['first_name'],
+			last_name=data['last_name'])
 			user.save()
 
 
