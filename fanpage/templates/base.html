@@ -4,25 +4,30 @@
 	<title>{% block title %}{% endblock title %}</title>
 
 	<!-- Imports -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
 
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 </head>
 <body>
-	<!-- Pills Nav Bar -->
-	<ul class="nav nav-pills">
-  		<li role="presentation"><a href="{% url 'index' %}">Home</a></li>
-  		<li role="presentation"><a href="{% url 'about' %}">About</a>
-  		<li role="presentation"><a href="{% url 'list' %}">Songs</a></li>
-  		<li role="presentation"><a href="{% url 'twitter' %}">Twitter</a></li>
-  		{% if user.is_authenticated %}
-  			<li role="presentation"><a href="{% url 'profile' %}">Profile</a>
-  			<li role="presentation"><a href="{% url 'logout' %}">Log Out</a>
-  		{% else %}
-			<li role="presentation"><a href="{% url 'register' %}">Register</a>
-  			<li role="presentation"><a href="{% url 'login' %}">Log In</a>
-  		{% endif %}
-	</ul>
+	<!-- Materialize Nav bar -->
+	<nav>
+    	<div class="nav-wrapper">
+      		<a href="{% url 'index' %}" class="brand-logo">Taylor Swift</a>
+      		<ul id="nav-mobile" class="right hide-on-med-and-down">
+      			<li><a href="{% url 'index' %}">Home</a></li>
+        		<li><a href="{% url 'about' %}">About</a></li>
+        		<li><a href="{% url 'list' %}">Songs</a></li>
+        		<li><a href="{% url 'twitter' %}">Twitter</a></li>
+        		{% if user.is_authenticated %}
+        			<li><a href="{% url 'profile' %}">Profile</a></li>
+        			<li><a href="{% url 'logout' %}">Logout</a></li>
+        		{% else %}
+        			<li><a href="{% url 'register' %}">Register</a></li>
+        			<li><a href="{% url 'login' %}">Login</a></li>
+        		{% endif %}
+      		</ul>
+    	</div>
+  	</nav>
 
 	<style>
 		.nav {

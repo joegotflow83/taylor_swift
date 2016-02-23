@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+
+{{ object.user.username }}
+{% if object.image %}
+	<img src="/media/{{ object.image }}">
+{% endif %}
+<p>Update Your Profile Pic? <br><a href="{% url 'update_pic' %}" class="btn btn-primary">Update Profile Picture</a>
+<br>
+<br>
+<p>Favorite Song: {{ object.favorite_song }}</p>
+<p>Favorite Album: {{ object.favorite_album }}</p>
+Things You Like About Taylor Swift: {{ object.about | linebreaks }}
+
+{% endblock %}

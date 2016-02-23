@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, View
+from django.views.generic import ListView, View, DetailView
 from django.views.generic.edit import FormView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -16,16 +16,15 @@ class Register(FormView):
 	form_class = UserForm
 	fields = ['username', 'email', 'password1', 'password2',
 			  'first_name', 'last_name']
-	success_url = '/accounts/update_profile/'
+	success_url = '/accounts/login/'
 
 	def form_valid(self, form):
 		"""validate the form"""
-		valid = super().form_valid(form)
-		username, password = form.cleaned_data.get('username'), \
-							 form.cleaned_data.get('password1')
-		user = authenticate(username=username, password=password)
-		login(self.request, user)
-		return valid
+		user = User.objects.create_user(form.cleaned_data['username'],
+                                        form.cleaned_data['email'],
+                                        form.cleaned_data['password1'])
+		user.save()
+		return super().form_valid(form)
 
 
 class AuthLogin(View):
@@ -38,7 +37,7 @@ class AuthLogin(View):
 		user = authenticate(username=username, password=password)
 		if user is not None:
 			login(request, user)
-			return redirect('/')
+			return redirect('/accounts/update_profile/')
 		else:
 			return HttpResponse('Invalid Credentials')
 
@@ -47,37 +46,36 @@ class AuthLogin(View):
 		return render(request, 'accounts/login.html')
 
 
-class Profile(ListView):
+class Profile(DetailView):
 
 
-	def get(self, request, pk):
+	model = UserProfile
+
+	def get_context_data(self, **kwargs):
 		"""Display the users profile info"""
-		user = User.objects.get(pk=pk)
-		profile = UserProfile.objects.get(pk=pk)
-		return render(request, 'accounts/profile.html', {'profile': profile,
-														 'user': user})
-
-class UpdateProfile(ListView):
+		object = super().get_context_data()
+		return object
 
 
-	def post(self, request):
-		"""Allow the user to update their profile information"""
-		form = UserProfileForm(request.POST)
-		if form.is_valid():
-			profile = form.save(commit=False)
-			profile.user = request.user
-			profile.save()
-			return redirect('/accounts')
-		else:
-			form.errors
-
-	def get(self, request):
-		"""Display profile form"""
-		form = UserProfileForm
-		return render(request, 'accounts/update_profile.html', {'form': form})
+class UpdateProfile(FormView):
 
 
-class UpdateProfilePic(ListView):
+	template_name = 'accounts/update_profile.html'
+	form_class = UserProfileForm
+	success_url = '/accounts/'
+
+	def form_valid(self, form):
+		"""Validate the form"""
+		profile = UserProfile(form.cleaned_data['first_name'],
+						   form.cleaned_data['last_name'],
+						   form.cleaned_data['favorite_song'],
+						   form.cleaned_data['favorite_album'],
+						   form.cleaned_data['about'])
+		profile.save()
+		return super().form_valid(form)
+
+
+class UpdateProfilePic(View):
 
 
 	def post(self, request):

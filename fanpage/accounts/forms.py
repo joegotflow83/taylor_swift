@@ -10,24 +10,20 @@ class UserForm(UserCreationForm):
 
 
 	email = forms.EmailField(required=True)
-	first_name = forms.CharField(max_length = 32)
-	last_name = forms.CharField(max_length = 32)
 
 
 	class Meta:
 
 
 		model = User
-		fields = ['username', 'email', 'password1', 'password2',
-				  'first_name', 'last_name']
+		fields = ['username', 'email', 'password1', 'password2']
 		last_login = forms.DateTimeField(datetime.datetime.now())
 		date_joined = forms.DateTimeField(datetime.datetime.now())
 
 		def save(self, commit=True):
 			"""Override save method to save data to User model"""
 			data = self.cleaned_data
-			user = User(email=data['email'], first_name=data['first_name'],
-			last_name=data['last_name'])
+			user = User(email=data['email'])
 			user.save()
 
 
@@ -38,7 +34,8 @@ class UserProfileForm(forms.ModelForm):
 
 
 		model = UserProfile
-		fields = ['favorite_song', 'favorite_album', 'about']
+		fields = ['first_name', 'last_name', 'favorite_song', 
+				  'favorite_album', 'about']
 
 
 class ProfilePicForm(forms.ModelForm):

@@ -18,6 +18,6 @@ class SongDetail(DetailView):
 
 	def get_object(self):
 		"""When user clicks on song display all info about the song"""
-		object = super(SongDetail, self).get_object()
+		object = super().get_object()
 		return object
 		

@@ -18,11 +18,7 @@ class Index(TemplateView):
 class About(TemplateView):
 
 	
-	def get_context_data(self):
-		"""Display about page"""
-		context = super().get_context_data()
-		context = wikipedia.page('Taylor Swift')
-		return context
+	template_name = 'main/about.html'
 
 
 class TwitterFeed(TemplateView):
