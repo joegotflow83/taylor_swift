@@ -22,8 +22,8 @@ from main import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.Index.as_view(), name='index'),
-    url(r'^about/$', TemplateView.as_view(template_name="main/about.html"), name='about'),
+    url(r'^about/$', views.About.as_view(), name='about'),
     url(r'^songs/', include('lyrics.urls')),
-    url(r'^twitter/$', views.TwitterFeed.as_view(), name='twitter'),
+    url(r'^twitter/$', TemplateView.as_view(template_name="main/twitter.html"), name='twitter'),
     url(r'^accounts/', include('accounts.urls')),
 ]

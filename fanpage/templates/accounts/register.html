@@ -9,8 +9,8 @@
 <div class="form">
 	<form method="POST" action="/accounts/register/">
 		{% csrf_token %}
-		{{ userform | as_bootstrap }}
-		{{ userprofileform | as_bootstrap}}
+		{{ form.as_p }}
+		
 		<input type="submit" value="Sign Up!" class="btn btn-success">
 	</form>
 </div>

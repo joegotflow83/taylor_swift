@@ -1,6 +1,6 @@
-from django.shortcuts import render
-from django.views.generic import ListView, TemplateView
+from django.views.generic import TemplateView
 import tweepy
+import wikipedia
 
 from fanpage import settings
 
@@ -9,26 +9,27 @@ auth = tweepy.OAuthHandler(settings.consumer_key, settings.consumer_secret)
 auth.set_access_token(settings.access_token, settings.access_secret)
 api = tweepy.API(auth)
 
-class Index(ListView):
+class Index(TemplateView):
 
 
-	def get(self, request):
-		"""Direct users to home page"""
-		return render(request, 'main/index.html')	
+	template_name = 'main/index.html'
+		
 
 class About(TemplateView):
 
+	
+	def get_context_data(self):
+		"""Display about page"""
+		context = super().get_context_data()
+		context = wikipedia.page('Taylor Swift')
+		return context
 
-	template_name = 'main/about.html'
+
+class TwitterFeed(TemplateView):
 
 
-class TwitterFeed(ListView):
-
-
-	def get(self, request):
-		"""Grap Taylors tweets"""
-		user = api.get_user('taylorswift13')
-		timeline = api.user_timeline(screen_name='taylorswift13')
-		return render(request, 'main/twitter.html', 
-					 {'user': user,
-					  'timeline': timeline})
+	def get_context_data(self):
+		context = super().get_context_data()
+		context = api.user_timeline(screen_name='taylorswift13')
+		return context
+		
