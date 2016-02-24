@@ -8,6 +8,6 @@ urlpatterns = [
 	url(r'^login/$', views.AuthLogin.as_view(), name='login'),
 	url(r'^update_profile/$', views.UpdateProfile.as_view(), name='update_profile'),
 	url(r'^update_profile_picture/$', views.UpdateProfilePic.as_view(), name='update_pic'),
-	url(r'^$', views.Profile.as_view(), name='profile'),
+	url(r'^(?P<pk>\d+)/$', views.Profile.as_view(), name='profile'),
 	url(r'^logout/$', views.AuthLogout.as_view(), name='logout'),
 ]

@@ -4,11 +4,10 @@
 
 {% block content %}
 
-{{ object.user.username }}
-{% if object.image %}
-	<img src="/media/{{ object.image }}">
+{% if object.profile_pic %}
+	<img src="/media/{{ object.profile_pic }}">
 {% endif %}
-<p>Update Your Profile Pic? <br><a href="{% url 'update_pic' %}" class="btn btn-primary">Update Profile Picture</a>
+<p>Update Your Profile Pic? <br><a href="{% url 'update_pic' %}" class="waves-effect waves-light btn">Update Profile Picture</a>
 <br>
 <br>
 <p>Favorite Song: {{ object.favorite_song }}</p>

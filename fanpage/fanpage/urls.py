@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.views.generic import TemplateView
 from django.contrib import admin
 
+from .settings import MEDIA_ROOT
 from main import views
 
 urlpatterns = [
@@ -26,4 +27,6 @@ urlpatterns = [
     url(r'^songs/', include('lyrics.urls')),
     url(r'^twitter/$', TemplateView.as_view(template_name="main/twitter.html"), name='twitter'),
     url(r'^accounts/', include('accounts.urls')),
+    url(r'^media/(?P<path>.*)/$', 'django.views.static.serve',
+        {'document_root': MEDIA_ROOT}),
 ]

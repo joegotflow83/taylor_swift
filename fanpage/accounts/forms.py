@@ -37,6 +37,16 @@ class UserProfileForm(forms.ModelForm):
 		fields = ['first_name', 'last_name', 'favorite_song', 
 				  'favorite_album', 'about']
 
+		def save(self, commit=True):
+			"""Override the save method to save data to user profile"""
+			data = self.cleaned_data
+			user = UserProfileForm(self.cleaned_data['first_name'],
+								   self.cleaned_data['last_name'],
+								   self.cleaned_data['favorite_song'],
+								   self.cleaned_data['favorite_album'],
+								   self.cleaned_data['about'])
+			user.save()
+
 
 class ProfilePicForm(forms.ModelForm):
 

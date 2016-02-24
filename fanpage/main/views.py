@@ -1,6 +1,5 @@
 from django.views.generic import TemplateView
 import tweepy
-import wikipedia
 
 from fanpage import settings
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, View, DetailView
-from django.views.generic.edit import FormView
+from django.views.generic import View, DetailView
+from django.views.generic.edit import FormView, UpdateView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse
@@ -49,11 +49,11 @@ class AuthLogin(View):
 class Profile(DetailView):
 
 
-	model = UserProfile
+	queryset = UserProfile.objects.all()
 
-	def get_context_data(self, **kwargs):
+	def get_object(self):
 		"""Display the users profile info"""
-		object = super().get_context_data()
+		object = super().get_object()
 		return object
 
 
@@ -75,22 +75,24 @@ class UpdateProfile(FormView):
 		return super().form_valid(form)
 
 
-class UpdateProfilePic(View):
+class UpdateProfilePic(UpdateView):
 
 
-	def post(self, request):
-		"""Allow a user to update their profile pic"""
-		form = ProfilePicForm(request.POST, request.FILES)
-		if form.is_valid():
-			form.save(commit=True)
-			return redirect('/accounts/')
-		else:
-			form.errors
+	model = UserProfile
+	fields = ['profile_pic']
+	template_name = 'accounts/updatepic.html'
+	success_url = '/'
 
-	def get(self, request):
-		"""Display the form to update their picture"""
-		form = ProfilePicForm()
-		return render(request, 'accounts/updatepic.html', {'form': form})
+	def get_object(self, queryset=None):
+		"""Allow user to choose a new picture"""
+		return self.request.user
+
+	def form_valid(self, form):
+		"""Clean the data and update the userprofile form"""
+		clean = form.cleaned_data 
+		context = {}        
+		self.object = context.save(clean) 
+		return super().form_valid(form) 
 
 
 class AuthLogout(View):

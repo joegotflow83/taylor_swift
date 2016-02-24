@@ -5,11 +5,19 @@
 {% block content %}
 
 <h2>Log In</h2>
-	<div class="login">
+	<div class="form">
 		<form method="post" action="/accounts/login/">
 			{% csrf_token %}
 			Username: <input name="username" type="text" placeholder="Enter Username">
 			Password: <input name="password" type="password" placeholder="Enter Password">
-			<input name="submit" type="submit" value="Log In" class="btn btn-primary">
+			<input name="submit" type="submit" value="Log In" class="waves-effect waves-light btn">
+		</form>
+	</div>
+<style>
+	.form {
+		padding-right: 500px;
+		padding-left: 50px;
+	}
+</style>
 
 {% endblock %}

@@ -4,16 +4,11 @@
 
 {% block content %}
 
-	<div class="jumbotron">
+	<div class="center-align">
 	  <h1>Taylor Swift</h1>
-	  <p>For all the lovers of Taylor Swift</p>
-	  <p><a href="/songs/" class="btn btn-primary">See Her Songs</a></p>
+	  <h5><em>For all the lovers of Taylor Swift</em></h5>
+	  <a href="{% url 'register' %}" class="waves-effect waves-light btn">Sign Up!</a>
+	  <a href="{% url 'login' %}" class="waves-effect waves-light btn">Log In!</a>
 	</div>
-
-	<style>
-		.jumbotron {
-			text-align: center;
-		}
-	</style>
 
 {% endblock %}
