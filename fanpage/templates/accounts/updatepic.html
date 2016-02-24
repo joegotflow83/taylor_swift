@@ -3,12 +3,19 @@
 {% block title %}Update Picture{% endblock title %}
 
 {% block content %}
+<div class="info">
+	<h3>Update Your Profile Picture</h3>
+	<form method="post" action="/accounts/update_profile_picture/">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<br>
+		<input type="submit" name="submit" value="Update Picture" <a class="waves-effect waves-light btn">
+	</form>
+</div>
 
-<h2>Update Your Profile Picture</h2>
-<form method="post" action="/accounts/update_profile_picture/">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<br>
-	<input type="submit" name="submit" value="Update Picture" <a class="waves-effect waves-light btn">
-
+<style>
+	.info {
+		padding-left: 30px;
+	}
+</style>
 {% endblock %}

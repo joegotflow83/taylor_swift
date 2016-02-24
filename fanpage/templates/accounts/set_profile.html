@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
-{% block title %}Update Profile{% endblock title %}
+{% block title %}Set Profile{% endblock title %}
 
 {% block content %}
 
 <div class="info">
-	<h2>Update your info</h2>
+	<h3>Enter your profile information</h3>
 	<form method="post" action="/accounts/update_profile/">
 		{% csrf_token %}
 		{{ form.as_p }}
-		<input type="submit" name="submit" value="Update Profile" <a class="waves-effect waves-light btn">
+		<input type="submit" name="submit" value="Finish Profile" <a class="waves-effect waves-light btn">
 	</form>
 </div>
 

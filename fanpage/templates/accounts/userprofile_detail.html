@@ -3,15 +3,24 @@
 {% block title %}{% endblock title %}
 
 {% block content %}
+<div class="user">
+	<h1>{{ object.user.username }}</h1>
+	{% if object.profile_pic %}
+		<img src="/media/{{ object.profile_pic }}">
+	{% endif %}
+	<p>Update Your Profile Pic? <br><a href="{% url 'update_pic' %}" class="waves-effect waves-light btn">Update Profile Picture</a>
+	<br>
+	<br>
+	<p>Favorite Song: {{ object.favorite_song }}</p>
+	<p>Favorite Album: {{ object.favorite_album }}</p>
+	Things You Like About Taylor Swift: {{ object.about | linebreaks }}
+	<br>
+	<a href="{% url 'update_profile' %}" class="waves-effect waves-light btn">Update Profile</a>
+</div>
 
-{% if object.profile_pic %}
-	<img src="/media/{{ object.profile_pic }}">
-{% endif %}
-<p>Update Your Profile Pic? <br><a href="{% url 'update_pic' %}" class="waves-effect waves-light btn">Update Profile Picture</a>
-<br>
-<br>
-<p>Favorite Song: {{ object.favorite_song }}</p>
-<p>Favorite Album: {{ object.favorite_album }}</p>
-Things You Like About Taylor Swift: {{ object.about | linebreaks }}
-
+<style>
+	.user {
+		padding-left: 30px;
+	}
+</style>
 {% endblock %}

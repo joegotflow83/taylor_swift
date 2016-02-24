@@ -34,18 +34,35 @@ class UserProfileForm(forms.ModelForm):
 
 
 		model = UserProfile
-		fields = ['first_name', 'last_name', 'favorite_song', 
+		fields = ['first_name', 'last_name', 'profile_pic', 'favorite_song', 
 				  'favorite_album', 'about']
 
 		def save(self, commit=True):
 			"""Override the save method to save data to user profile"""
-			data = self.cleaned_data
 			user = UserProfileForm(self.cleaned_data['first_name'],
 								   self.cleaned_data['last_name'],
+								   self.cleaned_data['profile_pic'],
 								   self.cleaned_data['favorite_song'],
 								   self.cleaned_data['favorite_album'],
 								   self.cleaned_data['about'])
 			user.save()
+
+
+class UpdateProfileForm(forms.ModelForm):
+
+
+	class Meta:
+
+
+		model = UserProfile
+		fields = ['favorite_song', 'favorite_album', 'about']
+
+		def save(self, commit=True):
+			"""Update the users profile info"""
+			profile = UserProfile(self.cleaned_data['favorite_song'],
+								  self.cleaned_data['favorite_album'],
+								  self.cleaned_data['about'])
+			profile.save()
 
 
 class ProfilePicForm(forms.ModelForm):
@@ -56,3 +73,8 @@ class ProfilePicForm(forms.ModelForm):
 
 		model = UserProfile
 		fields = ['profile_pic']
+
+		def save(self, commit=True):
+			"""Update the user profile picture"""
+			profile_pic = UserProfileForm(self.cleaned_data['profile_pic'])
+			profile_pic.save()

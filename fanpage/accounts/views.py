@@ -37,7 +37,7 @@ class AuthLogin(View):
 		user = authenticate(username=username, password=password)
 		if user is not None:
 			login(request, user)
-			return redirect('/accounts/update_profile/')
+			return redirect('/accounts/set_profile/')
 		else:
 			return HttpResponse('Invalid Credentials')
 
@@ -57,21 +57,39 @@ class Profile(DetailView):
 		return object
 
 
-class UpdateProfile(FormView):
+class SetProfile(FormView):
 
 
-	template_name = 'accounts/update_profile.html'
+	template_name = 'accounts/set_profile.html'
 	form_class = UserProfileForm
-	success_url = '/accounts/'
+	success_url = '/'
 
 	def form_valid(self, form):
 		"""Validate the form"""
-		profile = UserProfile(form.cleaned_data['first_name'],
-						   form.cleaned_data['last_name'],
-						   form.cleaned_data['favorite_song'],
-						   form.cleaned_data['favorite_album'],
-						   form.cleaned_data['about'])
-		profile.save()
+		new_profile = UserProfile.objects.create(
+								first_name=form.cleaned_data['first_name'],
+								last_name=form.cleaned_data['last_name'],
+								favorite_song=form.cleaned_data['favorite_song'],
+								favorite_album=form.cleaned_data['favorite_album'],
+								about=form.cleaned_data['about'])
+		new_profile.save()
+		return super().form_valid(form)
+
+
+class UpdateProfile(UpdateView):
+
+
+	model = UserProfile
+	fields = ['favorite_song', 'favorite_album', 'about']
+	template_name = 'accounts/update_profile.html'
+	success_url = '/'
+
+	def get_object(self, queryset=None):
+		"""Grab the correct users info"""
+		return self.request.user
+
+	def form_valid(self, form):
+		"""Validate the form"""
 		return super().form_valid(form)
 
 
@@ -84,15 +102,12 @@ class UpdateProfilePic(UpdateView):
 	success_url = '/'
 
 	def get_object(self, queryset=None):
-		"""Allow user to choose a new picture"""
+		"""Grab the correct user to update pic"""
 		return self.request.user
 
 	def form_valid(self, form):
-		"""Clean the data and update the userprofile form"""
-		clean = form.cleaned_data 
-		context = {}        
-		self.object = context.save(clean) 
-		return super().form_valid(form) 
+		"""Validate the form"""
+		return super().form_valid(form)
 
 
 class AuthLogout(View):
